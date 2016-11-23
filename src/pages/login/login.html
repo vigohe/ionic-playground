@@ -5,13 +5,10 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>login</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <ion-list>
@@ -25,13 +22,42 @@
         <ion-label floating>Password</ion-label>
         <ion-input [(ngModel)]="usuario.password" type="password" name="password" required></ion-input>
       </ion-item>
-      <button ion-button large block type="submit">Login</button>
-    </form>
-    <button ion-button large block (click)="logout()">Logout</button>
 
+      <ion-item>
+        <button ion-button large block type="submit">Login</button>
+      </ion-item>
+    </form>
   </ion-list>
 
-  <div> {{ (af.auth | async)?.uid }} </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-33>
+        <button ion-button block (click)="loginFacebook()" clear large>
+          <ion-icon name="logo-facebook"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button block (click)="loginGoogle()" clear large>
+          <ion-icon name="logo-google"></ion-icon>
+        </button>
+      </ion-col>
+
+      <ion-col width-33>
+        <button ion-button block (click)="logout()" clear large>
+          <ion-icon name="log-out"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <ion-item>
+      <!--<ion-avatar item-left>-->
+        <!--<img src="{{ (af.auth | async)?.profileImageURL }}">-->
+      <!--</ion-avatar>-->
+      {{ (af.auth | async)?.uid }}
+    </ion-item>
+  </ion-list>
 
 
 </ion-content>

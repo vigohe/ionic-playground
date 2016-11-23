@@ -23,6 +23,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
+    this.af.auth.subscribe(auth => console.log(auth));
   }
 
   login() {
@@ -31,12 +32,30 @@ export class LoginPage {
     this.af.auth.login({
       email: this.usuario.username,
       password: this.usuario.password
+    },
+      {
+        provider: AuthProviders.Password,
+        method: AuthMethods.Password,
     }).then(data => console.log(data)).catch(e => this.showAlert(e));
 
   }
 
   logout() {
     this.af.auth.logout();
+  }
+
+  loginGoogle(){
+    this.af.auth.login({
+      provider: AuthProviders.Google,
+      method: AuthMethods.Redirect
+    });
+  }
+
+  loginFacebook(){
+    this.af.auth.login({
+      provider: AuthProviders.Facebook,
+      method: AuthMethods.Redirect
+    });
   }
 
   showAlert(error) {
