@@ -6,6 +6,7 @@ import {AngularFireModule, AuthMethods, AuthProviders} from 'angularfire2';
 import {TabsPage} from "../pages/tabs/tabs";
 import {PlaygroundPage} from "../pages/playground/playground";
 import {FormsModule} from "@angular/forms";
+import {AuthService} from "../providers/auth-service";
 
 // Must export the config
 export const firebaseConfig = {
@@ -38,6 +39,6 @@ export const myFirebaseAuthConfig = {
     TabsPage,
     PlaygroundPage
   ],
-  providers: []
+  providers: [AuthService]
 })
 export class AppModule {}

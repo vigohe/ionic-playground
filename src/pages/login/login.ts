@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavController, AlertController} from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable, AuthProviders, AuthMethods} from "angularfire2";
 import {Observable} from "rxjs";
+import {AuthService} from "../../providers/auth-service";
 
 /*
   Generated class for the Login page.
@@ -19,7 +20,7 @@ export class LoginPage {
 
   usuario: {username?: string, password?: string} = {};
 
-  constructor(public navCtrl: NavController, public af : AngularFire, public alertCtrl: AlertController) {}
+  constructor(public navCtrl: NavController, public af : AngularFire, public alertCtrl: AlertController,private _auth: AuthService) {}
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
@@ -47,15 +48,17 @@ export class LoginPage {
   loginGoogle(){
     this.af.auth.login({
       provider: AuthProviders.Google,
-      method: AuthMethods.Redirect
+      method: AuthMethods.Popup
     });
   }
 
   loginFacebook(){
-    this.af.auth.login({
-      provider: AuthProviders.Facebook,
-      method: AuthMethods.Redirect
-    });
+    this._auth.signInWithFacebook()
+      .then(() => this.onSignInSuccess());
+  }
+
+  private onSignInSuccess(): void {
+    console.log("Facebook display name ",this._auth.displayName());
   }
 
   showAlert(error) {
