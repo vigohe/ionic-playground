@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import {NavController, AlertController} from 'ionic-angular';
-import {AngularFire, FirebaseObjectObservable, AuthProviders, AuthMethods} from "angularfire2";
-import {Observable} from "rxjs";
+import {Component} from "@angular/core";
+import {NavController, AlertController} from "ionic-angular";
+import {AngularFire, AuthProviders, AuthMethods} from "angularfire2";
 import {AuthService} from "../../providers/auth-service";
+import {UserInfoPage} from "../user-info/user-info";
 
 /*
   Generated class for the Login page.
@@ -16,20 +16,15 @@ import {AuthService} from "../../providers/auth-service";
 })
 export class LoginPage {
 
-  loginObservable : Observable<any>;
-
   usuario: {username?: string, password?: string} = {};
 
   constructor(public navCtrl: NavController, public af : AngularFire, public alertCtrl: AlertController,private _auth: AuthService) {}
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
-    this.af.auth.subscribe(auth => console.log(auth));
   }
 
   login() {
-    console.log(this.usuario);
-
     this.af.auth.login({
       email: this.usuario.username,
       password: this.usuario.password
@@ -37,28 +32,23 @@ export class LoginPage {
       {
         provider: AuthProviders.Password,
         method: AuthMethods.Password,
-    }).then(data => console.log(data)).catch(e => this.showAlert(e));
-
-  }
-
-  logout() {
-    this.af.auth.logout();
+    }).then(firebaseAuthState => this.onSignInSuccess()).catch(e => this.showAlert(e));
   }
 
   loginGoogle(){
     this.af.auth.login({
       provider: AuthProviders.Google,
       method: AuthMethods.Popup
-    });
+    }).then(firebaseAuthState => this.onSignInSuccess());
   }
 
   loginFacebook(){
     this._auth.signInWithFacebook()
-      .then(() => this.onSignInSuccess());
+      .then(firebaseAuthState => this.onSignInSuccess());
   }
 
   private onSignInSuccess(): void {
-    console.log("Facebook display name ",this._auth.displayName());
+    this.navCtrl.push(UserInfoPage);
   }
 
   showAlert(error) {

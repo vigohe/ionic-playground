@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { MyApp } from './app.component';
+import {NgModule} from "@angular/core";
+import {IonicApp, IonicModule} from "ionic-angular";
+import {MyApp} from "./app.component";
 import {LoginPage} from "../pages/login/login";
-import {AngularFireModule, AuthMethods, AuthProviders} from 'angularfire2';
+import {AngularFireModule, AuthMethods, AuthProviders} from "angularfire2";
 import {TabsPage} from "../pages/tabs/tabs";
 import {PlaygroundPage} from "../pages/playground/playground";
-import {FormsModule} from "@angular/forms";
 import {AuthService} from "../providers/auth-service";
+import {UserInfoPage} from "../pages/user-info/user-info";
 
 // Must export the config
 export const firebaseConfig = {
@@ -26,7 +26,8 @@ export const myFirebaseAuthConfig = {
     MyApp,
     LoginPage,
     TabsPage,
-    PlaygroundPage
+    PlaygroundPage,
+    UserInfoPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig,myFirebaseAuthConfig),
@@ -37,7 +38,8 @@ export const myFirebaseAuthConfig = {
     MyApp,
     LoginPage,
     TabsPage,
-    PlaygroundPage
+    PlaygroundPage,
+    UserInfoPage
   ],
   providers: [AuthService]
 })

@@ -41,12 +41,5 @@ export class AuthService {
     this.auth$.logout();
   }
 
-  setUserDetails(): void {
-    if(this.authState.facebook != null){
-
-    }
-
-  }
-
 
 }
