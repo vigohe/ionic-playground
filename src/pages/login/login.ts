@@ -32,14 +32,13 @@ export class LoginPage {
       {
         provider: AuthProviders.Password,
         method: AuthMethods.Password,
-    }).then(firebaseAuthState => this.onSignInSuccess()).catch(e => this.showAlert(e));
+    }).then(firebaseAuthState => this.onSignInSuccess())
+      .catch(e => this.showAlert(e));
   }
 
   loginGoogle(){
-    this.af.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Popup
-    }).then(firebaseAuthState => this.onSignInSuccess());
+    this._auth.signInWithGoogle()
+      .then(firebaseAuthState => this.onSignInSuccess());
   }
 
   loginFacebook(){
